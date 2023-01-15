@@ -2,25 +2,23 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_preferences/preferences/preferences.dart';
 
-class Zombie extends StatefulWidget {
-  static const String routeName = 'zombie';
+class Dragon extends StatefulWidget {
+  static const String routeName = 'dragon';
   @override
-  State<Zombie> createState() => _ZombieState();
+  State<Dragon> createState() => _DragonState();
 }
 
-class _ZombieState extends State<Zombie> {
-  // pagina de Enemigo, al hacer click desde la pagina de bosses vamos a cada uno de estos
-  static final playerzombie =
-      AudioPlayer(); // estos tienen unos atributos que se guardan dentro del shared preferences
-  final playerzombie2 =
-      AudioPlayer(); // todas las paginas tienen la misma estructura, 2 containers, donde en uno se ven las caracteristicas y en el otro un InkWell
-  final playerzombie3 = AudioPlayer();
-  int vidaZombie = Preferences.vidaboss1;
+class _DragonState extends State<Dragon> {
+  // pagina de personaje, explicacion en la pagian de zombie
+  final playerdragon = AudioPlayer();
+  final playerdragon2 = AudioPlayer();
+  final playerdragon3 = AudioPlayer();
+  int vidaDragon = Preferences.boss2;
   var snackBar = SnackBar(content: Text("El boss ya ha sido eliminado"));
 
   void initState() {
     super.initState();
-    playerzombie.play(AssetSource("zombiefondo.mp3"));
+    playerdragon.play(AssetSource("arcade.mp3"));
   }
 
   @override
@@ -29,7 +27,7 @@ class _ZombieState extends State<Zombie> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () => playerzombie.stop(),
+              onPressed: () => playerdragon.stop(),
               icon: Icon(Icons.music_note))
         ],
         backgroundColor: Colors.black,
@@ -57,7 +55,7 @@ class _ZombieState extends State<Zombie> {
                       child: Column(
                         children: [
                           Text(
-                            "Vida del Zombie \n ${Preferences.vidaRestanteZombie} / ${vidaZombie} \nDamage per Click ${Preferences.damagePerClick}\nCoins: ${Preferences.coins}",
+                            "Vida del Zombie \n ${Preferences.vidaRestanteDragon} / ${Preferences.vidaboss2} \nDamage per Click ${Preferences.damagePerClick}\nCoins: ${Preferences.coins}",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 25),
@@ -90,7 +88,7 @@ class _ZombieState extends State<Zombie> {
                     height: 200,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/zombie.gif"),
+                            image: AssetImage("assets/drake.gif"),
                             fit: BoxFit.contain)),
                   )),
                 ),
@@ -103,20 +101,20 @@ class _ZombieState extends State<Zombie> {
   }
 
   calcularVida() {
-    if (Preferences.vidaRestanteZombie <= 0) {
-      Preferences.vidaRestanteZombie = 0;
+    if (Preferences.vidaRestanteDragon <= 0) {
+      Preferences.vidaRestanteDragon = 0;
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      playerzombie.stop();
+      playerdragon.stop();
     } else {
-      playerzombie2.play(AssetSource("zombiegolpe.mp3"));
-      Preferences.vidaRestanteZombie =
-          Preferences.vidaRestanteZombie - Preferences.damagePerClick;
+      playerdragon2.play(AssetSource("drake.mp3"));
+      Preferences.vidaRestanteDragon =
+          Preferences.vidaRestanteDragon - Preferences.damagePerClick;
       Preferences.totalClicks += 1;
       Preferences.coins += Preferences.damagePerClick;
-      if (Preferences.vidaRestanteZombie <= 0) {
-        playerzombie.stop();
-        playerzombie3.play(AssetSource("zelda.mp3"));
-        Preferences.derrotadoZombie = true;
+      if (Preferences.vidaRestanteDragon <= 0) {
+        playerdragon.stop();
+        playerdragon3.play(AssetSource("zelda.mp3"));
+        Preferences.derrotadoDragon = true;
       }
     }
 

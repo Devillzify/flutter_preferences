@@ -13,11 +13,16 @@ class _HomePage extends State<HomePage> {
   static final player = AudioPlayer();
   void initState() {
     super.initState();
-    player.play(AssetSource("halloween.mp3"));
+    player.play(AssetSource(
+        "halloween.mp3")); // aqui accedemos por primera vez a la pagina y activo una cancion usando el audioplayer
   }
 
   TextStyle style = new TextStyle(
-      fontSize: 25, fontWeight: FontWeight.bold, color: Colors.cyan);
+      // usamos el Preferences para guardar las estadisticas y mostrarlas en la parte superior
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+      color: Colors
+          .cyan); // a continuacion hay un gif en un container y un InkWell para pasar a la siguiente pagina
   TextStyle style2 = new TextStyle(
       fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white);
 
@@ -56,7 +61,7 @@ class _HomePage extends State<HomePage> {
                   Text(
                     "Coins: ${Preferences.coins}",
                     style: style,
-                  )
+                  ),
                 ]),
           ),
           Container(
@@ -95,6 +100,7 @@ class _HomePage extends State<HomePage> {
   }
 
   reload() {
+    player.play(AssetSource("halloween.mp3"));
     setState(() {});
   }
 }
